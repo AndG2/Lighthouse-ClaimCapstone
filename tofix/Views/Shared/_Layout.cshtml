@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML>
+<!--
+    Solid State by HTML5 UP
+    html5up.net | ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Generic - Solid State by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    @Styles.Render("~/Content/main.css")
+    @*<link rel="stylesheet" href="~/Content/main.css" />*@
+    <noscript><link rel="stylesheet" href="~/Content/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <h1><a href="#">Solid State</a></h1>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <div class="inner">
+                <h2>Menu</h2>
+                <ul class="links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="~/Categories">Categories</a></li>
+                    <li><a href="~/Videos">Videos</a></li>
+                    <li><a href="~/Account/Login">Log In</a></li>
+                    <li><a href="~/Account/Register">Register</a></li>
+                    <li><a href="~/Home/About">About</a></li>
+                </ul>
+                <a href="#" class="close">Close</a>
+            </div>
+        </nav>
+
+        <!-- Wrapper -->
+        <section id="wrapper">
+   
+            <!-- Content -->
+            <div class="wrapper">
+                <div class="inner">
+
+                    @RenderBody()
+                    
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    @*<script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.scrollex.min.js"></script>
+    <script src="~/Scripts/browser.min.js"></script>
+    <script src="~/Scripts/breakpoints.min.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/main.js"></script>*@
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    @Scripts.Render("~/Scripts/jquery.scrollex.min.js")
+    @Scripts.Render("~/Scripts/browser.min.js")
+    @Scripts.Render("~/Scripts/breakpoints.min.js")
+    @Scripts.Render("~/Scripts/util.js")
+    @Scripts.Render("~/Scripts/main.js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

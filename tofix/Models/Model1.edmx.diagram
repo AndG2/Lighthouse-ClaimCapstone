@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="LighthouseTest1Model.Category" Width="1.5" PointX="1.125" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LighthouseTest1Model.Review" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="LighthouseTest1Model.ReviewResponse" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.sysdiagram" Width="1.5" PointX="8.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.sysdiagram" Width="1.5" PointX="9.25" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LighthouseTest1Model.UserData" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LighthouseTest1Model.Video" Width="1.5" PointX="5.375" PointY="3.625" IsExpanded="true" />
         <AssociationConnector Association="LighthouseTest1Model.FK_Video_Category" ManuallyRouted="false" />

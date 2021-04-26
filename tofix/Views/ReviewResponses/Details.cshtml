@@ -1,0 +1,50 @@
+﻿@model tofix.Models.ReviewResponse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReviewResponse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Response)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Response)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BodyText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BodyText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Review.BodyText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Review.BodyText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserData.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserData.DisplayName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -175,6 +175,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mail\MessageSender.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CategoriesController.cs" />
     <Compile Include="Models\Category.cs">
@@ -345,6 +346,7 @@
     <Content Include="Views\ReviewResponses\Details.cshtml" />
     <Content Include="Views\ReviewResponses\Edit.cshtml" />
     <Content Include="Views\ReviewResponses\Index.cshtml" />
+    <Content Include="secrets.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

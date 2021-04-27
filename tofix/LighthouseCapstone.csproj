@@ -230,12 +230,18 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\noscript.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fa-brands-400.svg" />
-    <Content Include="fonts\fa-regular-400.svg" />
-    <Content Include="fonts\fa-solid-900.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\pic01.jpg" />
+    <Content Include="images\pic02.jpg" />
+    <Content Include="images\pic03.jpg" />
+    <Content Include="images\pic04.jpg" />
+    <Content Include="images\pic05.jpg" />
+    <Content Include="images\pic06.jpg" />
+    <Content Include="images\pic07.jpg" />
+    <Content Include="images\pic08.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -248,18 +254,9 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\fa-brands-400.eot" />
-    <Content Include="fonts\fa-brands-400.ttf" />
-    <Content Include="fonts\fa-brands-400.woff" />
-    <Content Include="fonts\fa-brands-400.woff2" />
-    <Content Include="fonts\fa-regular-400.eot" />
-    <Content Include="fonts\fa-regular-400.ttf" />
-    <Content Include="fonts\fa-regular-400.woff" />
-    <Content Include="fonts\fa-regular-400.woff2" />
-    <Content Include="fonts\fa-solid-900.eot" />
-    <Content Include="fonts\fa-solid-900.ttf" />
-    <Content Include="fonts\fa-solid-900.woff" />
-    <Content Include="fonts\fa-solid-900.woff2" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -347,6 +344,18 @@
     <Content Include="Views\ReviewResponses\Edit.cshtml" />
     <Content Include="Views\ReviewResponses\Index.cshtml" />
     <Content Include="secrets.config" />
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

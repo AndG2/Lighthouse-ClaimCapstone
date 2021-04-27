@@ -4142,3 +4142,10 @@ input, select, textarea {
 		}
 
 	}
+
+
+	/*MY CHANGES BELOW*/
+input[type="number"] {
+	background: rgba(255, 255, 255, 0.025);
+	color: white;
+}

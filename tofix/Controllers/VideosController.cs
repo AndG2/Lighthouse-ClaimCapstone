@@ -47,7 +47,7 @@ namespace tofix.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,youtubeLinkAPI,ReviewScoreTotal,ReviewScoreVotes,Description,videoCatagory,videoLink,videoName,videoImage,videoSelfDescription,videoLength")] Video video)
+        public ActionResult Create([Bind(Include = "ReviewScoreTotal,Description,videoCatagory,videoLink")] Video video)
         {
             if (ModelState.IsValid)
             {

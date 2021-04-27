@@ -156,7 +156,15 @@ namespace tofix.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    var DBuser = new UserData { DisplayName = model.DisplayName, EmailAddress = model.Email, ID = user.Id , AdminLevel =0};
+                    using (var db = new LighthouseTest1Entities())
+                    {
+                    db.UserDatas.Add(DBuser);
+                    db.SaveChanges();
+                    }
+
+               
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

@@ -49,6 +49,13 @@ namespace tofix.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ReviewScoreTotal,Description,videoCatagory,videoLink")] Video video)
         {
+            var youtubeLinkAPI = 0; //functionality to extract section behind "?v=" or remove "https://www.youtube.com/watch?v="
+
+            //
+            //ADD YOUBUTT API INTERFACE HERE TO PULL:
+            // video.videoLength, video.videoSelfDescription, video.videoImage,
+            //
+
             if (ModelState.IsValid)
             {
                 db.Videos.Add(video);

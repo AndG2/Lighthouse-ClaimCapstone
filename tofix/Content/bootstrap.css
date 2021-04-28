@@ -2738,7 +2738,7 @@ textarea.form-control {
   }
 }
 .form-group {
-  margin-bottom: 15px;
+  margin: 25px;
 }
 .radio,
 .checkbox {

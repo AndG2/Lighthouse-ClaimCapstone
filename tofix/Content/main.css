@@ -3090,7 +3090,7 @@ input, select, textarea {
 			-ms-transition: opacity 0.2s ease-in-out, visibility 0.2s;
 			transition: opacity 0.2s ease-in-out, visibility 0.2s;
 			border-bottom: 0;
-			font-size: 0.8em;
+			font-size: 2em; /*Changed*/
 			margin-bottom: 0;
 			opacity: 1;
 			visibility: visible;
@@ -3669,10 +3669,10 @@ input, select, textarea {
 			-ms-transform: scaleY(-1) scaleX(-1);
 			transform: scaleY(-1) scaleX(-1);
 		}
-
+		/*updated*/
 		.wrapper .inner {
 			padding: 3em 0 1em 0 ;
-			margin: 0 auto;
+			margin: 25px; 
 			width: 55em;
 		}
 
@@ -4148,4 +4148,8 @@ input, select, textarea {
 input[type="number"] {
 	background: rgba(255, 255, 255, 0.025);
 	color: white;
+}
+
+.form-group {
+	margin: 25px;
 }

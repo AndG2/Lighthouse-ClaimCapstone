@@ -5,7 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using tofix.YoutubeDataPuller;
 
 namespace tofix.Models
 {
@@ -47,15 +49,16 @@ namespace tofix.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReviewScoreTotal,Description,videoCatagory,videoLink")] Video video)
+        public async Task<ActionResult> Create([Bind(Include = "ReviewScoreTotal,Description,videoCatagory,videoLink")] Video video)
         {
-            var youtubeLinkAPI = 0; //functionality to extract section behind "?v=" or remove "https://www.youtube.com/watch?v="
+            var videoPartsToBreak = await YTDataPuller.GetVideoInfo(video.videoLink);
 
-            //
-            //ADD YOUBUTT API INTERFACE HERE TO PULL:
-            // video.videoLength, video.videoSelfDescription, video.videoImage,
-            //
+            video.youtubeLinkAPI = YTDataPuller.ParseFromUrl(video.videoLink);
+            video.videoName = videoPartsToBreak.Title;
+            video.videoSelfDescription = videoPartsToBreak.Description;
+            //video.videoLength= videoPartsToBreak.
 
+        
             if (ModelState.IsValid)
             {
                 db.Videos.Add(video);

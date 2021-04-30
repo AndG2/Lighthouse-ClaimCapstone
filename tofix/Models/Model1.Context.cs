@@ -25,11 +25,12 @@ namespace tofix.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ReviewResponse> ReviewResponses { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserData> UserDatas { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<ReactionEmoji> ReactionEmojis { get; set; }
     }
 }

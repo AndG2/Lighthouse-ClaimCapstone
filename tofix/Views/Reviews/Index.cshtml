@@ -15,13 +15,14 @@
             @Html.DisplayNameFor(model => model.BodyText)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            Reactions
+            @*@Html.DisplayNameFor(model => model.ReactionLink)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UserData.DisplayName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Video.Description)
+            @Html.DisplayNameFor(model => model.Video.youtubeLinkAPI)
         </th>
         <th></th>
     </tr>
@@ -32,13 +33,15 @@
             @Html.DisplayFor(modelItem => item.BodyText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
+            @foreach (var emoji in item.ReactionEmojis)
+            {
+                @: @emoji.Reaction
+            }
+<td>
             @Html.DisplayFor(modelItem => item.UserData.DisplayName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Video.Description)
+            @Html.DisplayFor(modelItem => item.Video.youtubeLinkAPI)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

@@ -18,12 +18,12 @@ namespace tofix.Models
         public Video()
         {
             this.Reviews = new HashSet<Review>();
+            this.ReactionEmojis = new HashSet<ReactionEmoji>();
         }
     
         public int ID { get; set; }
         public string youtubeLinkAPI { get; set; }
         public decimal ReviewScoreTotal { get; set; }
-        public int ReviewScoreVotes { get; set; }
         public string Description { get; set; }
         public Nullable<int> videoCatagory { get; set; }
         public string videoLink { get; set; }
@@ -31,9 +31,12 @@ namespace tofix.Models
         public byte[] videoImage { get; set; }
         public string videoSelfDescription { get; set; }
         public string videoLength { get; set; }
+        public string videoImageUrl { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReactionEmoji> ReactionEmojis { get; set; }
     }
 }

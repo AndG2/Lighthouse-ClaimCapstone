@@ -7,90 +7,115 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Video</h4>
+    <h4>@Html.DisplayFor(model => model.videoName) </h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.youtubeLinkAPI)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.youtubeLinkAPI)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReviewScoreTotal)
-        </dt>
+    <div>
+        <div>
+            <iframe width="480" height="270" src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div>
+            @foreach(var pair in Model.GetEmojiCount(2))
+            {
+            <span title="@pair.Value">@pair.Key</span>
+            }
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReviewScoreTotal)
-        </dd>
+    <div>
+        <p>
+            @Html.ActionLink("Add Comment","Create", "Reviews", new { id = Model.ID },null)
+        </p>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReviewScoreVotes)
-        </dt>
+    <div>
+        @Html.Action("Index", "Reviews", new { id=Model.ID})
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReviewScoreVotes)
-        </dd>
+    @*<dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.youtubeLinkAPI)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.youtubeLinkAPI)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReviewScoreTotal)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.videoLink)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReviewScoreTotal)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.videoLink)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.videoName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.videoName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.videoLink)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.videoImage)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.videoLink)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.videoImage)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.videoName)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.videoSelfDescription)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.videoName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.videoSelfDescription)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.videoImage)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.videoLength)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.videoImage)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.videoLength)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.videoSelfDescription)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.videoSelfDescription)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.videoLength)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.videoLength)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.videoImageUrl)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.videoImageUrl)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+
+        </dl>*@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

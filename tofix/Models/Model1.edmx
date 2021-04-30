@@ -4,21 +4,53 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LighthouseTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LighthouseTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ReactionEmoji">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reaction" Type="nvarchar" MaxLength="5" />
+          <Property Name="Score" Type="int" />
+        </EntityType>
+        <EntityType Name="ReactionLinkingReview">
+          <Key>
+            <PropertyRef Name="reviewID" />
+            <PropertyRef Name="reactionID" />
+          </Key>
+          <Property Name="reviewID" Type="int" Nullable="false" />
+          <Property Name="reactionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReactionLinkingReviewResponse">
+          <Key>
+            <PropertyRef Name="reactionReviewID" />
+            <PropertyRef Name="reactionID" />
+          </Key>
+          <Property Name="reactionReviewID" Type="int" Nullable="false" />
+          <Property Name="reactionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReactionLinkingVideo">
+          <Key>
+            <PropertyRef Name="videoID" />
+            <PropertyRef Name="reactionID" />
+          </Key>
+          <Property Name="videoID" Type="int" Nullable="false" />
+          <Property Name="reactionID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BodyText" Type="varchar(max)" Nullable="false" />
-          <Property Name="Rating" Type="int" />
+          <Property Name="ReactionLink" Type="int" />
           <Property Name="userID" Type="nvarchar" MaxLength="128" />
           <Property Name="videoID" Type="int" />
         </EntityType>
@@ -26,7 +58,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="reviewID" Type="int" />
           <Property Name="userID" Type="nvarchar" MaxLength="128" />
           <Property Name="Response" Type="varchar(max)" />
@@ -55,18 +87,90 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="youtubeLinkAPI" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="youtubeLinkAPI" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ReviewScoreTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ReviewScoreVotes" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="videoCatagory" Type="int" />
           <Property Name="videoLink" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="videoName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="videoImage" Type="image" />
           <Property Name="videoSelfDescription" Type="nvarchar(max)" />
-          <Property Name="videoLength" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="videoLength" Type="nchar" MaxLength="20" />
+          <Property Name="videoImageUrl" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_ReactionLinkingReview_ReactionEmoji">
+          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1" />
+          <End Role="ReactionLinkingReview" Type="Self.ReactionLinkingReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReactionEmoji">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingReview">
+              <PropertyRef Name="reactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReactionLinkingReview_Review">
+          <End Role="Review" Type="Self.Review" Multiplicity="1" />
+          <End Role="ReactionLinkingReview" Type="Self.ReactionLinkingReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingReview">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReactionLinkingReviewResponse_ReactionEmoji">
+          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1" />
+          <End Role="ReactionLinkingReviewResponse" Type="Self.ReactionLinkingReviewResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReactionEmoji">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingReviewResponse">
+              <PropertyRef Name="reactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReactionLinkingReviewResponse_ReviewResponse">
+          <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="1" />
+          <End Role="ReactionLinkingReviewResponse" Type="Self.ReactionLinkingReviewResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReviewResponse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingReviewResponse">
+              <PropertyRef Name="reactionReviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReactionLinkingVideo_ReactionEmoji">
+          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1" />
+          <End Role="ReactionLinkingVideo" Type="Self.ReactionLinkingVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReactionEmoji">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingVideo">
+              <PropertyRef Name="reactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReactionLinkingVideo_Video">
+          <End Role="Video" Type="Self.Video" Multiplicity="1" />
+          <End Role="ReactionLinkingVideo" Type="Self.ReactionLinkingVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReactionLinkingVideo">
+              <PropertyRef Name="videoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Review_UserData">
           <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
@@ -129,11 +233,39 @@
         </Association>
         <EntityContainer Name="LighthouseTest1ModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReactionEmoji" EntityType="Self.ReactionEmoji" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReactionLinkingReview" EntityType="Self.ReactionLinkingReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReactionLinkingReviewResponse" EntityType="Self.ReactionLinkingReviewResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReactionLinkingVideo" EntityType="Self.ReactionLinkingVideo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReviewResponse" EntityType="Self.ReviewResponse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ReactionLinkingReview_ReactionEmoji" Association="Self.FK_ReactionLinkingReview_ReactionEmoji">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmoji" />
+            <End Role="ReactionLinkingReview" EntitySet="ReactionLinkingReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReactionLinkingReview_Review" Association="Self.FK_ReactionLinkingReview_Review">
+            <End Role="Review" EntitySet="Review" />
+            <End Role="ReactionLinkingReview" EntitySet="ReactionLinkingReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReactionLinkingReviewResponse_ReactionEmoji" Association="Self.FK_ReactionLinkingReviewResponse_ReactionEmoji">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmoji" />
+            <End Role="ReactionLinkingReviewResponse" EntitySet="ReactionLinkingReviewResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReactionLinkingReviewResponse_ReviewResponse" Association="Self.FK_ReactionLinkingReviewResponse_ReviewResponse">
+            <End Role="ReviewResponse" EntitySet="ReviewResponse" />
+            <End Role="ReactionLinkingReviewResponse" EntitySet="ReactionLinkingReviewResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReactionLinkingVideo_ReactionEmoji" Association="Self.FK_ReactionLinkingVideo_ReactionEmoji">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmoji" />
+            <End Role="ReactionLinkingVideo" EntitySet="ReactionLinkingVideo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReactionLinkingVideo_Video" Association="Self.FK_ReactionLinkingVideo_Video">
+            <End Role="Video" EntitySet="Video" />
+            <End Role="ReactionLinkingVideo" EntitySet="ReactionLinkingVideo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Review_UserData" Association="Self.FK_Review_UserData">
             <End Role="UserData" EntitySet="UserData" />
             <End Role="Review" EntitySet="Review" />
@@ -155,44 +287,10 @@
             <End Role="Video" EntitySet="Video" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LighthouseTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Videos" Relationship="Self.FK_Video_Category" FromRole="Category" ToRole="Video" />
-        </EntityType>
-        <EntityType Name="Review">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="BodyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Rating" Type="Int32" />
-          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="videoID" Type="Int32" />
-          <NavigationProperty Name="UserData" Relationship="Self.FK_Review_UserData" FromRole="Review" ToRole="UserData" />
-          <NavigationProperty Name="Video" Relationship="Self.FK_Review_Video" FromRole="Review" ToRole="Video" />
-          <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponse_Review" FromRole="Review" ToRole="ReviewResponse" />
-        </EntityType>
-        <EntityType Name="ReviewResponse">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="reviewID" Type="Int32" />
-          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="BodyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Review" Relationship="Self.FK_ReviewResponse_Review" FromRole="ReviewResponse" ToRole="Review" />
-          <NavigationProperty Name="UserData" Relationship="Self.FK_ReviewResponse_UserData" FromRole="ReviewResponse" ToRole="UserData" />
-        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -203,38 +301,115 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityContainer Name="LighthouseTest1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Categories" EntityType="LighthouseTest1Model.Category" />
+          <EntitySet Name="Reviews" EntityType="LighthouseTest1Model.Review" />
+          <EntitySet Name="ReviewResponses" EntityType="LighthouseTest1Model.ReviewResponse" />
+          <EntitySet Name="UserDatas" EntityType="LighthouseTest1Model.UserData" />
+          <EntitySet Name="Videos" EntityType="LighthouseTest1Model.Video" />
+          <AssociationSet Name="FK_Video_Category" Association="LighthouseTest1Model.FK_Video_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_UserData" Association="LighthouseTest1Model.FK_Review_UserData">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Video" Association="LighthouseTest1Model.FK_Review_Video">
+            <End Role="Video" EntitySet="Videos" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponse_Review" Association="LighthouseTest1Model.FK_ReviewResponse_Review">
+            <End Role="Review" EntitySet="Reviews" />
+            <End Role="ReviewResponse" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponse_UserData" Association="LighthouseTest1Model.FK_ReviewResponse_UserData">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="ReviewResponse" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <EntitySet Name="ReactionEmojis" EntityType="LighthouseTest1Model.ReactionEmoji" />
+          <AssociationSet Name="ReactionLinkingReview" Association="LighthouseTest1Model.ReactionLinkingReview">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmojis" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="ReactionLinkingReviewResponse" Association="LighthouseTest1Model.ReactionLinkingReviewResponse">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmojis" />
+            <End Role="ReviewResponse" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="ReactionLinkingVideo" Association="LighthouseTest1Model.ReactionLinkingVideo">
+            <End Role="ReactionEmoji" EntitySet="ReactionEmojis" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Videos" Relationship="LighthouseTest1Model.FK_Video_Category" FromRole="Category" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BodyText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReactionLink" Type="Int32" />
+          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="videoID" Type="Int32" />
+          <NavigationProperty Name="UserData" Relationship="LighthouseTest1Model.FK_Review_UserData" FromRole="Review" ToRole="UserData" />
+          <NavigationProperty Name="Video" Relationship="LighthouseTest1Model.FK_Review_Video" FromRole="Review" ToRole="Video" />
+          <NavigationProperty Name="ReviewResponses" Relationship="LighthouseTest1Model.FK_ReviewResponse_Review" FromRole="Review" ToRole="ReviewResponse" />
+          <NavigationProperty Name="ReactionEmojis" Relationship="LighthouseTest1Model.ReactionLinkingReview" FromRole="Review" ToRole="ReactionEmoji" />
+        </EntityType>
+        <EntityType Name="ReviewResponse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reviewID" Type="Int32" />
+          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BodyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Review" Relationship="LighthouseTest1Model.FK_ReviewResponse_Review" FromRole="ReviewResponse" ToRole="Review" />
+          <NavigationProperty Name="UserData" Relationship="LighthouseTest1Model.FK_ReviewResponse_UserData" FromRole="ReviewResponse" ToRole="UserData" />
+          <NavigationProperty Name="ReactionEmojis" Relationship="LighthouseTest1Model.ReactionLinkingReviewResponse" FromRole="ReviewResponse" ToRole="ReactionEmoji" />
+        </EntityType>
         <EntityType Name="UserData">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="AdminLevel" Type="Int32" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_UserData" FromRole="UserData" ToRole="Review" />
-          <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponse_UserData" FromRole="UserData" ToRole="ReviewResponse" />
+          <NavigationProperty Name="Reviews" Relationship="LighthouseTest1Model.FK_Review_UserData" FromRole="UserData" ToRole="Review" />
+          <NavigationProperty Name="ReviewResponses" Relationship="LighthouseTest1Model.FK_ReviewResponse_UserData" FromRole="UserData" ToRole="ReviewResponse" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="youtubeLinkAPI" Type="Int32" Nullable="false" />
-          <Property Name="ReviewScoreTotal" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ReviewScoreVotes" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="youtubeLinkAPI" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewScoreTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="videoCatagory" Type="Int32" />
-          <Property Name="videoLink" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="videoName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="videoLink" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="videoName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="videoImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="videoSelfDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="videoLength" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Video_Category" FromRole="Video" ToRole="Category" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Video" FromRole="Video" ToRole="Review" />
+          <Property Name="videoLength" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="videoImageUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="LighthouseTest1Model.FK_Video_Category" FromRole="Video" ToRole="Category" />
+          <NavigationProperty Name="Reviews" Relationship="LighthouseTest1Model.FK_Review_Video" FromRole="Video" ToRole="Review" />
+          <NavigationProperty Name="ReactionEmojis" Relationship="LighthouseTest1Model.ReactionLinkingVideo" FromRole="Video" ToRole="ReactionEmoji" />
         </EntityType>
         <Association Name="FK_Video_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="LighthouseTest1Model.Video" Role="Video" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="ID" />
@@ -245,8 +420,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_UserData">
-          <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
-          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.UserData" Role="UserData" Multiplicity="0..1" />
+          <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserData">
               <PropertyRef Name="ID" />
@@ -257,8 +432,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_Video">
-          <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
-          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.Video" Role="Video" Multiplicity="0..1" />
+          <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Video">
               <PropertyRef Name="ID" />
@@ -269,8 +444,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReviewResponse_Review">
-          <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
-          <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="0..1" />
+          <End Type="LighthouseTest1Model.ReviewResponse" Role="ReviewResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Review">
               <PropertyRef Name="ID" />
@@ -281,8 +456,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReviewResponse_UserData">
-          <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
-          <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.UserData" Role="UserData" Multiplicity="0..1" />
+          <End Type="LighthouseTest1Model.ReviewResponse" Role="ReviewResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserData">
               <PropertyRef Name="ID" />
@@ -292,70 +467,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LighthouseTest1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Reviews" EntityType="Self.Review" />
-          <EntitySet Name="ReviewResponses" EntityType="Self.ReviewResponse" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="UserDatas" EntityType="Self.UserData" />
-          <EntitySet Name="Videos" EntityType="Self.Video" />
-          <AssociationSet Name="FK_Video_Category" Association="Self.FK_Video_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Video" EntitySet="Videos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Review_UserData" Association="Self.FK_Review_UserData">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Review" EntitySet="Reviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Review_Video" Association="Self.FK_Review_Video">
-            <End Role="Video" EntitySet="Videos" />
-            <End Role="Review" EntitySet="Reviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReviewResponse_Review" Association="Self.FK_ReviewResponse_Review">
-            <End Role="Review" EntitySet="Reviews" />
-            <End Role="ReviewResponse" EntitySet="ReviewResponses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReviewResponse_UserData" Association="Self.FK_ReviewResponse_UserData">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="ReviewResponse" EntitySet="ReviewResponses" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <EntityType Name="ReactionEmoji">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reaction" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" />
+          <NavigationProperty Name="Reviews" Relationship="LighthouseTest1Model.ReactionLinkingReview" FromRole="ReactionEmoji" ToRole="Review" />
+          <NavigationProperty Name="ReviewResponses" Relationship="LighthouseTest1Model.ReactionLinkingReviewResponse" FromRole="ReactionEmoji" ToRole="ReviewResponse" />
+          <NavigationProperty Name="Videos" Relationship="LighthouseTest1Model.ReactionLinkingVideo" FromRole="ReactionEmoji" ToRole="Video" />
+        </EntityType>
+        <Association Name="ReactionLinkingReview">
+          <End Type="LighthouseTest1Model.ReactionEmoji" Role="ReactionEmoji" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="*" />
+        </Association>
+        <Association Name="ReactionLinkingReviewResponse">
+          <End Type="LighthouseTest1Model.ReactionEmoji" Role="ReactionEmoji" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.ReviewResponse" Role="ReviewResponse" Multiplicity="*" />
+        </Association>
+        <Association Name="ReactionLinkingVideo">
+          <End Type="LighthouseTest1Model.ReactionEmoji" Role="ReactionEmoji" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.Video" Role="Video" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LighthouseTest1ModelStoreContainer" CdmEntityContainer="LighthouseTest1Entities">
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="LighthouseTest1Model.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="LighthouseTest1Model.Review">
-              <MappingFragment StoreEntitySet="Review">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="videoID" ColumnName="videoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReviewResponses">
-            <EntityTypeMapping TypeName="LighthouseTest1Model.ReviewResponse">
-              <MappingFragment StoreEntitySet="ReviewResponse">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="Response" ColumnName="Response" />
-                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="LighthouseTest1Model.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -367,34 +507,97 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="LighthouseTest1Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="LighthouseTest1Model.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="videoID" ColumnName="videoID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="ReactionLink" ColumnName="ReactionLink" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewResponses">
+            <EntityTypeMapping TypeName="LighthouseTest1Model.ReviewResponse">
+              <MappingFragment StoreEntitySet="ReviewResponse">
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserDatas">
             <EntityTypeMapping TypeName="LighthouseTest1Model.UserData">
               <MappingFragment StoreEntitySet="UserData">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="AdminLevel" ColumnName="AdminLevel" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="LighthouseTest1Model.Video">
               <MappingFragment StoreEntitySet="Video">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="youtubeLinkAPI" ColumnName="youtubeLinkAPI" />
-                <ScalarProperty Name="ReviewScoreTotal" ColumnName="ReviewScoreTotal" />
-                <ScalarProperty Name="ReviewScoreVotes" ColumnName="ReviewScoreVotes" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="videoCatagory" ColumnName="videoCatagory" />
-                <ScalarProperty Name="videoLink" ColumnName="videoLink" />
-                <ScalarProperty Name="videoName" ColumnName="videoName" />
-                <ScalarProperty Name="videoImage" ColumnName="videoImage" />
-                <ScalarProperty Name="videoSelfDescription" ColumnName="videoSelfDescription" />
+                <ScalarProperty Name="videoImageUrl" ColumnName="videoImageUrl" />
                 <ScalarProperty Name="videoLength" ColumnName="videoLength" />
+                <ScalarProperty Name="videoSelfDescription" ColumnName="videoSelfDescription" />
+                <ScalarProperty Name="videoImage" ColumnName="videoImage" />
+                <ScalarProperty Name="videoName" ColumnName="videoName" />
+                <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+                <ScalarProperty Name="videoCatagory" ColumnName="videoCatagory" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReviewScoreTotal" ColumnName="ReviewScoreTotal" />
+                <ScalarProperty Name="youtubeLinkAPI" ColumnName="youtubeLinkAPI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="ReactionEmojis">
+            <EntityTypeMapping TypeName="LighthouseTest1Model.ReactionEmoji">
+              <MappingFragment StoreEntitySet="ReactionEmoji">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Reaction" ColumnName="Reaction" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ReactionLinkingReview" TypeName="LighthouseTest1Model.ReactionLinkingReview" StoreEntitySet="ReactionLinkingReview">
+            <EndProperty Name="Review">
+              <ScalarProperty Name="ID" ColumnName="reviewID" />
+            </EndProperty>
+            <EndProperty Name="ReactionEmoji">
+              <ScalarProperty Name="ID" ColumnName="reactionID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ReactionLinkingReviewResponse" TypeName="LighthouseTest1Model.ReactionLinkingReviewResponse" StoreEntitySet="ReactionLinkingReviewResponse">
+            <EndProperty Name="ReviewResponse">
+              <ScalarProperty Name="ID" ColumnName="reactionReviewID" />
+            </EndProperty>
+            <EndProperty Name="ReactionEmoji">
+              <ScalarProperty Name="ID" ColumnName="reactionID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ReactionLinkingVideo" TypeName="LighthouseTest1Model.ReactionLinkingVideo" StoreEntitySet="ReactionLinkingVideo">
+            <EndProperty Name="Video">
+              <ScalarProperty Name="ID" ColumnName="videoID" />
+            </EndProperty>
+            <EndProperty Name="ReactionEmoji">
+              <ScalarProperty Name="ID" ColumnName="reactionID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

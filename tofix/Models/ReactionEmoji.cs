@@ -12,26 +12,25 @@ namespace tofix.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class ReactionEmoji
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Review()
+        public ReactionEmoji()
         {
+            this.Reviews = new HashSet<Review>();
             this.ReviewResponses = new HashSet<ReviewResponse>();
-            this.ReactionEmojis = new HashSet<ReactionEmoji>();
+            this.Videos = new HashSet<Video>();
         }
     
         public int ID { get; set; }
-        public string BodyText { get; set; }
-        public Nullable<int> ReactionLink { get; set; }
-        public string userID { get; set; }
-        public Nullable<int> videoID { get; set; }
+        public string Reaction { get; set; }
+        public Nullable<int> Score { get; set; }
     
-        public virtual UserData UserData { get; set; }
-        public virtual Video Video { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReviewResponse> ReviewResponses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReactionEmoji> ReactionEmojis { get; set; }
+        public virtual ICollection<Video> Videos { get; set; }
     }
 }

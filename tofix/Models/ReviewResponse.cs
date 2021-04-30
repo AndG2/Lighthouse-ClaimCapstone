@@ -14,6 +14,12 @@ namespace tofix.Models
     
     public partial class ReviewResponse
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ReviewResponse()
+        {
+            this.ReactionEmojis = new HashSet<ReactionEmoji>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> reviewID { get; set; }
         public string userID { get; set; }
@@ -22,5 +28,7 @@ namespace tofix.Models
     
         public virtual Review Review { get; set; }
         public virtual UserData UserData { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReactionEmoji> ReactionEmojis { get; set; }
     }
 }

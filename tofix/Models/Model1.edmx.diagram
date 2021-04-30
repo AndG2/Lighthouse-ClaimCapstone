@@ -5,18 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1803ab1c89684c038fe42c337182afa9" Name="Diagram1">
-        <EntityTypeShape EntityType="LighthouseTest1Model.Category" Width="1.5" PointX="1.125" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.Review" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.ReviewResponse" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.sysdiagram" Width="1.5" PointX="9.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.UserData" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LighthouseTest1Model.Video" Width="1.5" PointX="5.375" PointY="3.625" IsExpanded="true" />
-        <AssociationConnector Association="LighthouseTest1Model.FK_Video_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="LighthouseTest1Model.FK_Review_UserData" ManuallyRouted="false" />
-        <AssociationConnector Association="LighthouseTest1Model.FK_Review_Video" ManuallyRouted="false" />
-        <AssociationConnector Association="LighthouseTest1Model.FK_ReviewResponse_Review" ManuallyRouted="false" />
-        <AssociationConnector Association="LighthouseTest1Model.FK_ReviewResponse_UserData" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="LighthouseTest1Model.sysdiagram" Width="1.5" PointX="10.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.Category" Width="1.5" PointX="2.875" PointY="1.125" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.Review" Width="1.5" PointX="5" PointY="4.875" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.ReviewResponse" Width="1.5" PointX="7.25" PointY="5" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.UserData" Width="1.5" PointX="5.875" PointY="0.625" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.Video" Width="1.5" PointX="2.75" PointY="4.375" />
+        <AssociationConnector Association="LighthouseTest1Model.FK_Video_Category" />
+        <AssociationConnector Association="LighthouseTest1Model.FK_Review_UserData" />
+        <AssociationConnector Association="LighthouseTest1Model.FK_Review_Video" />
+        <AssociationConnector Association="LighthouseTest1Model.FK_ReviewResponse_Review" />
+        <AssociationConnector Association="LighthouseTest1Model.FK_ReviewResponse_UserData" />
+        <EntityTypeShape EntityType="LighthouseTest1Model.ReactionEmoji" Width="1.5" PointX="0.75" PointY="5.125" />
+        <AssociationConnector Association="LighthouseTest1Model.ReactionLinkingReview" />
+        <AssociationConnector Association="LighthouseTest1Model.ReactionLinkingReviewResponse" />
+        <AssociationConnector Association="LighthouseTest1Model.ReactionLinkingVideo" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

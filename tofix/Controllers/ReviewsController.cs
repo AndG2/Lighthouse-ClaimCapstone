@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,18 +7,20 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using tofix.Models;
+using tofix.Models.ViewModels;
 
-namespace tofix.Models
+namespace tofix.Controllers
 {
     public class ReviewsController : Controller
     {
         private LighthouseTest1Entities db = new LighthouseTest1Entities();
 
         // GET: Reviews
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var reviews = db.Reviews.Include(r => r.UserData).Include(r => r.Video);
-            return View(reviews.ToList());
+            var reviews = db.Reviews.Where(r => r.videoID==id);
+            return PartialView(reviews.ToList());
         }
 
         // GET: Reviews/Details/5
@@ -36,11 +39,18 @@ namespace tofix.Models
         }
 
         // GET: Reviews/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName");
-            ViewBag.videoID = new SelectList(db.Videos, "ID", "Description");
-            return View();
+            var activeUser = User.Identity.GetUserId();
+            var model = new CreateReviewViewModel();
+            model.userID = activeUser;
+            model.videoID = id.Value;
+
+            ViewBag.allEmojis = new MultiSelectList(db.ReactionEmojis, "ID", "Reaction");
+            //ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName");
+            //ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI");
+            
+            return View(model);
         }
 
         // POST: Reviews/Create
@@ -48,18 +58,35 @@ namespace tofix.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,BodyText,Rating,userID,videoID")] Review review)
+        public ActionResult Create(CreateReviewViewModel reviewVM)
         {
+           
             if (ModelState.IsValid)
             {
+                var review = new Review
+                {
+                    BodyText = reviewVM.BodyText,
+                    ReactionLink = reviewVM.ReactionLink,
+                    userID = reviewVM.userID,
+                    videoID =reviewVM.videoID
+                };
+                var emojiList = new List<ReactionEmoji>();
+                foreach(var emojiID in reviewVM.ReactionEmojiIDs)
+                {
+                    var emoji = db.ReactionEmojis.Find(emojiID);
+                    emojiList.Add(emoji);
+                }
+                review.ReactionEmojis = emojiList;
+                
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Videos",new {id=review.videoID});
             }
 
-            ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
-            ViewBag.videoID = new SelectList(db.Videos, "ID", "Description", review.videoID);
-            return View(review);
+            ViewBag.allEmojis = new MultiSelectList(db.ReactionEmojis, "ID", "Reaction",reviewVM.ReactionEmojiIDs);
+            //ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
+            //ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI", review.videoID);
+            return View(reviewVM);
         }
 
         // GET: Reviews/Edit/5
@@ -75,7 +102,7 @@ namespace tofix.Models
                 return HttpNotFound();
             }
             ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
-            ViewBag.videoID = new SelectList(db.Videos, "ID", "Description", review.videoID);
+            ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI", review.videoID);
             return View(review);
         }
 
@@ -84,7 +111,7 @@ namespace tofix.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,BodyText,Rating,userID,videoID")] Review review)
+        public ActionResult Edit([Bind(Include = "ID,BodyText,ReactionLink,userID,videoID")] Review review)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +120,7 @@ namespace tofix.Models
                 return RedirectToAction("Index");
             }
             ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
-            ViewBag.videoID = new SelectList(db.Videos, "ID", "Description", review.videoID);
+            ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI", review.videoID);
             return View(review);
         }
 

@@ -3,119 +3,38 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
 <div>
-    <h4>@Html.DisplayFor(model => model.videoName) </h4>
-    <hr />
 
+    <h1>@Html.DisplayFor(model => model.videoName) </h1>
 
     <div>
-        <div>
-            <iframe width="480" height="270" src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
+        <div margin:auto>
+            <iframe width=100% height=600px src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+        <hr />
         <div>
-            @foreach(var pair in Model.GetEmojiCount(2))
+            Top Responses : @foreach (var pair in Model.GetEmojiCount(2))
             {
-            <span title="@pair.Value">@pair.Key</span>
+                <span title="@pair.Value">@pair.Key</span>
             }
         </div>
     </div>
-
+    <hr />
     <div>
-        <p>
-            @Html.ActionLink("Add Comment","Create", "Reviews", new { id = Model.ID },null)
-        </p>
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            <p class="button primary">
+                @Html.ActionLink("Add Comment", "Create", "Reviews", new { id = Model.ID }, null)
+            </p>
+        }
     </div>
 
     <div>
-        @Html.Action("Index", "Reviews", new { id=Model.ID})
+        @Html.Action("Index", "Reviews", new { id = Model.ID })
     </div>
 
-    @*<dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.youtubeLinkAPI)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.youtubeLinkAPI)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ReviewScoreTotal)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ReviewScoreTotal)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoLink)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoLink)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoImage)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoImage)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoSelfDescription)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoSelfDescription)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoLength)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoLength)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.videoImageUrl)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.videoImageUrl)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Category.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Category.Name)
-            </dd>
-
-        </dl>*@
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

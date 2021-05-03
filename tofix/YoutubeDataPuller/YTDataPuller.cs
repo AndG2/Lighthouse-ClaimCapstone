@@ -36,7 +36,7 @@ namespace tofix.YoutubeDataPuller
 
             var videoId = ParseFromUrl(url);
 
-            var searchListRequest = youtubeService.Search.List("snippet,player");
+            var searchListRequest = youtubeService.Search.List("snippet");
             searchListRequest.Q = videoId; // Replace with your search term.
             searchListRequest.MaxResults = 5;
 

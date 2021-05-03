@@ -23,7 +23,7 @@ namespace tofix.Models
     
         public int ID { get; set; }
         public string youtubeLinkAPI { get; set; }
-        public decimal ReviewScoreTotal { get; set; }
+        public Nullable<decimal> ReviewScoreTotal { get; set; }
         public string Description { get; set; }
         public Nullable<int> videoCatagory { get; set; }
         public string videoLink { get; set; }

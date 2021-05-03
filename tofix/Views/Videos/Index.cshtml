@@ -3,85 +3,66 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.youtubeLinkAPI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewScoreTotal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.videoLink)
+            @Html.DisplayNameFor(model => model.videoImage)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.videoName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.videoImage)
+            Top Responses
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.videoSelfDescription)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.videoLength)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.videoImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.youtubeLinkAPI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReviewScoreTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoLink)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoSelfDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoLength)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.videoImageUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.Category.Name)
+    </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.videoImage)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.videoName)
+    </td>
+    <td>
+        <div>
+            @foreach (var pair in item.GetEmojiCount(2))
+            {
+                <span title="@pair.Value">@pair.Key</span>
+            }
+        </div>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+
+
+    <td>
+
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @*@if (User.AdminLevel == 1)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            }*@
+
+    </td>
+</tr>
 }
 
 </table>

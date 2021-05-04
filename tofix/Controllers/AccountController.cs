@@ -155,6 +155,8 @@ namespace tofix.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "User");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     var DBuser = new UserData { DisplayName = model.DisplayName, EmailAddress = model.Email, ID = user.Id , AdminLevel =0};

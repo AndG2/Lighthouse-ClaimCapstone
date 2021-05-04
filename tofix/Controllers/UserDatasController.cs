@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -121,6 +122,17 @@ namespace tofix.Models
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult LoginPartial()
+        {
+            var userID = User.Identity.GetUserId();
+            UserData userData = db.UserDatas.Find(userID);
+            if (userData == null){
+                userData = new UserData();
+                userData.DisplayName = "";
+            }
+            return PartialView(userData);
         }
     }
 }

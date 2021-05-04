@@ -16,10 +16,10 @@ namespace tofix.Models
         private LighthouseTest1Entities db = new LighthouseTest1Entities();
 
         // GET: Videos
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var videos = db.Videos.Include(v => v.Category);
-            return View(videos.ToList());
+            var videos = db.Videos.Include(v => v.Category).Where(v => v.videoCatagory==id);
+            return PartialView(videos.ToList());
         }
 
         // GET: Videos/Details/5
@@ -56,6 +56,10 @@ namespace tofix.Models
             video.youtubeLinkAPI = YTDataPuller.ParseFromUrl(video.videoLink);
             video.videoName = videoPartsToBreak.Title;
             video.videoSelfDescription = videoPartsToBreak.Description;
+            var image = videoPartsToBreak.Thumbnails.Maxres ?? videoPartsToBreak.Thumbnails.Standard ??
+                videoPartsToBreak.Thumbnails.High ?? videoPartsToBreak.Thumbnails.Medium ?? videoPartsToBreak.Thumbnails.Default__;
+            video.videoImageUrl = image.Url;
+
             //video.videoLength= videoPartsToBreak.
 
         
@@ -63,7 +67,7 @@ namespace tofix.Models
             {
                 db.Videos.Add(video);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Categories",new { id=video.videoCatagory});
             }
 
             ViewBag.videoCatagory = new SelectList(db.Categories, "ID", "Name", video.videoCatagory);

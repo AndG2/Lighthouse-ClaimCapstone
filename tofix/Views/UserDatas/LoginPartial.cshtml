@@ -1,0 +1,29 @@
+﻿@model tofix.Models.UserData
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+
+        <btn>
+            @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </btn>
+
+        <btn>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right", style = "display:none" }))
+            {
+            @Html.AntiForgeryToken()
+            } 
+            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </btn>
+    
+    
+}
+else
+{
+    
+        <btn>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</btn>
+        <btn>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</btn>
+    
+}
+
+

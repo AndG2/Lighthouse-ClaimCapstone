@@ -348,7 +348,7 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\UserDatas\LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout - default.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy modified.cshtml" />
     <Content Include="Views\View.cshtml" />
@@ -390,6 +390,7 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

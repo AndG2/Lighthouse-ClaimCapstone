@@ -12,7 +12,7 @@
             @Html.DisplayNameFor(model => model.Category.Name)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.videoImage)
+            @Html.DisplayNameFor(model => model.videoImageUrl)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.videoName)
@@ -30,10 +30,13 @@
 @foreach (var item in Model) {
 <tr>
     @*<td>
-        @Html.DisplayFor(modelItem => item.Category.Name)
-    </td>*@
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>*@
     <td>
-        @Html.DisplayFor(modelItem => item.videoImage)
+        <span class="image fit">
+            <img src="@item.videoImageUrl" />
+            @*@Html.DisplayFor(modelItem => item.videoImageUrl)*@
+        </span>
     </td>
 
     <td>
@@ -53,13 +56,16 @@
 
 
     <td>
+        @Html.ActionLink("Details", "Details", new { id = item.ID })
 
-        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-        @*@if (User.AdminLevel == 1)
-            {
+        @if (User.IsInRole("Admin"))
+        {
+            <text>
+                |
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            }*@
+            </text>
+        }
 
     </td>
 </tr>

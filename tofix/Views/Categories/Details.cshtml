@@ -6,18 +6,15 @@
 
 <h1>@Html.DisplayFor(model => model.Name)</h1>
 <div>
-    @foreach(var video in Model.Videos)
-    {
-       
+
         <div>
-                @Html.Action("Index", "Videos", new { category = video.Category })
+                @Html.Action("Index", "Videos", new { id=Model.ID })
         </div>
-        
-    }
+
 
 </div>
 
-<div>
+@*<div>
     <h4>Category</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -30,8 +27,20 @@
         </dd>
 
     </dl>
-</div>
+</div>*@
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    @if (User.IsInRole("Admin"))
+    {
+        <text>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+             |
+            @Html.ActionLink("Back to List", "Index")
+        </text>
+    }
+
+        else
+
+        {
+            @: @Html.ActionLink("Back to List", "Index")
+        }
+    </p>

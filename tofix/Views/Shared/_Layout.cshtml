@@ -22,7 +22,7 @@
         <header id="header">
             <h1><a href="~/Home">Lighthouse</a></h1>
             <nav class="nav navbar-nav navbar-right">
-                @Html.Partial("_LoginPartial")
+                @Html.Action("LoginPartial", "UserDatas")
                 <a href="#menu">Menu</a>
 
 
@@ -37,7 +37,6 @@
                 <ul class="links">
                     <li><a href="~/Home/">Home</a></li>
                     <li><a href="~/Categories/">Categories</a></li> @*/Catagories/Details/#*@
-                    <li><a href="~/Videos">All Videos</a></li>
                     <li><a href="~/Home/About">About</a></li>
                     @if (User.Identity.IsAuthenticated == false)
                     {
@@ -54,14 +53,10 @@
         <section id="wrapper">
    
             <!-- Content -->
-            <div class="wrapper">
-                <div class="inner">
 
+            <!--FIX FORMATING TO GIVE SPACE ON TOP-->
                     @RenderBody()
-                    
-                </div>
-            </div>
-
+            
         </section>
 
         <!-- Footer -->

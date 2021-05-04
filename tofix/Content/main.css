@@ -4203,3 +4203,8 @@ input[type="number"] {
 .dropdown:hover .dropbtn {
 	background-color: #3e8e41;
 }
+
+/*gives spacing to top of page*/
+section#wrapper {
+	padding-top: 6em;
+}

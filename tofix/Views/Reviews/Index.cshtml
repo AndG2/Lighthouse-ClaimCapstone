@@ -10,39 +10,39 @@
         </th>
         <th>
             Reactions
-            @*@Html.DisplayNameFor(model => model.ReactionLink)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UserData.DisplayName)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Video.youtubeLinkAPI)
-        </th>*@
+        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BodyText)
-        </td>
-        <td>
-            @foreach (var emoji in item.ReactionEmojis)
-            {
-                @: @emoji.Reaction
-            }
-<td>
-            @Html.DisplayFor(modelItem => item.UserData.DisplayName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Video.youtubeLinkAPI)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.BodyText)
+    </td>
+    <td>
+        @foreach (var emoji in item.ReactionEmojis)
+        {
+            @: @emoji.Reaction
+        }
+    <td>
+        @Html.DisplayFor(modelItem => item.UserData.DisplayName)
+    </td>
+
+    @Html.ActionLink("Details", "Details", new { id = item.ID })
+
+    @if (User.IsInRole("Admin"))
+    {
+        <text>
+            |
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </text>
+    }
+</tr>
 }
 
 </table>

@@ -4154,6 +4154,17 @@ input[type="number"] {
 	margin: 25px;
 }
 
+.emoji-response {
+	padding-left: 2em;
+	font-size: larger;
+	font-weight: bold;
+}
+
+.add-comment-button{
+	padding-right:2em;
+	font-size:larger;
+}
+
 <style >
 /* Style The Dropdown Button */
 .dropbtn {
@@ -4208,3 +4219,4 @@ input[type="number"] {
 section#wrapper {
 	padding-top: 6em;
 }
+

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using tofix.Models;
@@ -142,10 +143,16 @@ namespace tofix.Controllers
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Review review = db.Reviews.Find(id);
-            db.Reviews.Remove(review);
+            var review2 =db.Reviews.Include(r => r.ReviewResponses).FirstOrDefault(r => r.ID==id);
+           
+            //await db.ReviewResponses.Where(r => r.reviewID == id).ForEachAsync<ReviewResponse>(
+            //    r => db.ReviewResponses.Remove(r)
+            //);
+
+            db.Reviews.Remove(review2);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

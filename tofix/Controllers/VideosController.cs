@@ -128,8 +128,12 @@ namespace tofix.Models
         public ActionResult DeleteConfirmed(int id)
         {
             Video video = db.Videos.Find(id);
+            
+            
             db.Videos.Remove(video);
             db.SaveChanges();
+
+
             return RedirectToAction("Index");
         }
 

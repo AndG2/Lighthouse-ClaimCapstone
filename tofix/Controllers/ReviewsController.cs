@@ -143,18 +143,20 @@ namespace tofix.Controllers
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
+            var deleteFromVideo = db.Reviews.Find(id).videoID;
             Review review = db.Reviews.Find(id);
-            var review2 =db.Reviews.Include(r => r.ReviewResponses).FirstOrDefault(r => r.ID==id);
-           
+            //var review2 =db.Reviews.Include(r => r.ReviewResponses).FirstOrDefault(r => r.ID==id);
+            
             //await db.ReviewResponses.Where(r => r.reviewID == id).ForEachAsync<ReviewResponse>(
             //    r => db.ReviewResponses.Remove(r)
             //);
 
-            db.Reviews.Remove(review2);
+            db.Reviews.Remove(review);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details" ,"Videos", new { id = deleteFromVideo }); // action, controller, new(id=value)
+            //return View("Index");
         }
 
         protected override void Dispose(bool disposing)

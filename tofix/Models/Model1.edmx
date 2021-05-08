@@ -100,7 +100,9 @@
           <Property Name="videoImageUrl" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ReactionLinkingReview_ReactionEmoji">
-          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1" />
+          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReactionLinkingReview" Type="Self.ReactionLinkingReview" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReactionEmoji">
@@ -112,7 +114,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReactionLinkingReview_Review">
-          <End Role="Review" Type="Self.Review" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReactionLinkingReview" Type="Self.ReactionLinkingReview" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Review">
@@ -124,7 +128,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReactionLinkingReviewResponse_ReactionEmoji">
-          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1" />
+          <End Role="ReactionEmoji" Type="Self.ReactionEmoji" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReactionLinkingReviewResponse" Type="Self.ReactionLinkingReviewResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReactionEmoji">
@@ -136,7 +142,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReactionLinkingReviewResponse_ReviewResponse">
-          <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="1" />
+          <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReactionLinkingReviewResponse" Type="Self.ReactionLinkingReviewResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReviewResponse">
@@ -160,7 +168,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReactionLinkingVideo_Video">
-          <End Role="Video" Type="Self.Video" Multiplicity="1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReactionLinkingVideo" Type="Self.ReactionLinkingVideo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Video">
@@ -184,7 +194,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_Video">
-          <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Video">
@@ -196,7 +208,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReviewResponse_Review">
-          <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ReviewResponse" Type="Self.ReviewResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Review">
@@ -445,7 +459,8 @@
         </Association>
         <Association Name="FK_ReviewResponse_Review">
           <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="0..1" />
-          <End Type="LighthouseTest1Model.ReviewResponse" Role="ReviewResponse" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.ReviewResponse" Role="ReviewResponse" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="Review">
               <PropertyRef Name="ID" />
@@ -479,7 +494,8 @@
           <NavigationProperty Name="Videos" Relationship="LighthouseTest1Model.ReactionLinkingVideo" FromRole="ReactionEmoji" ToRole="Video" />
         </EntityType>
         <Association Name="ReactionLinkingReview">
-          <End Type="LighthouseTest1Model.ReactionEmoji" Role="ReactionEmoji" Multiplicity="*" />
+          <End Type="LighthouseTest1Model.ReactionEmoji" Role="ReactionEmoji" Multiplicity="*" >
+          </End>
           <End Type="LighthouseTest1Model.Review" Role="Review" Multiplicity="*" />
         </Association>
         <Association Name="ReactionLinkingReviewResponse">

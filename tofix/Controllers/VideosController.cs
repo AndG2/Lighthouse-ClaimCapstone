@@ -61,7 +61,7 @@ namespace tofix.Models
             video.videoImageUrl = image.Url;
 
             //video.videoLength= videoPartsToBreak.
-
+            video.ReviewScoreTotal = 0;
         
             if (ModelState.IsValid)
             {

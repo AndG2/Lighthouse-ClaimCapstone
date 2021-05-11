@@ -4177,6 +4177,76 @@ input[type="number"] {
 	font-size:larger;
 }
 
+label.checkboxbox {
+	border-radius: 5px;
+	/*scroll-padding: 5px;*/
+	background-color: rgba(255,255,255,0.3);
+}
+
+
+/*Image tiles*/
+.image.fit {
+	height: 480px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: stretch;
+	padding: 1em;
+	border-radius:.5em;
+}
+
+.videoTitle {
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	background: black;
+	border-radius: 7px;
+	padding: 2px 10px;
+	font-weight: bold;
+	border: .2em solid #0000ff66;
+}
+
+.videoTitle {
+}
+
+.videoTopBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.videoEmojiReaction {
+	/* margin: 15px 0px 0px 15px; */
+	background: black;
+	font-size: xx-large;
+	border-radius: .3em;
+	padding: .2em .4em;
+	border: .2em solid #0000ff66;
+}
+
+.videoTime {
+	font-size: x-large;
+	font-weight: bold;
+	background: black;
+	border-radius: .4em;
+	padding: .1em .5em;
+	border: .2em solid #0000ff66;
+}
+
+a.image.fit:hover {
+	box-shadow: 0 0 0.5em 0.5em blue;
+}
+
+.videoDetailBox{
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+
 <style >
 /* Style The Dropdown Button */
 .dropbtn {

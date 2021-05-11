@@ -32,16 +32,18 @@
         @Html.DisplayFor(modelItem => item.UserData.DisplayName)
     </td>
 
-    @Html.ActionLink("Details", "Details", new { id = item.ID })
+    <td>
+        <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div>
 
-    @if (User.IsInRole("Admin"))
-    {
-        <text>
-            |
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </text>
-    }
+        @if (User.IsInRole("Admin"))
+        {
+            <text>
+                |
+                    <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
+                    <div class="button small"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
+            </text>
+        }
+    </td>
 </tr>
 }
 

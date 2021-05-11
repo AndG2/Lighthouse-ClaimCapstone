@@ -8,31 +8,33 @@
     <h1>@Html.DisplayFor(model => model.videoName) </h1>
 
     <div>
-        <div margin:auto>
+        <span margin:auto>
             <iframe width=800px height=600px src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        </span>
         <hr />
-        <div class="align-left">
-            <div class="emoji-response">
-                Top Responses : @foreach (var pair in Model.GetEmojiCount(2))
+        <div class="row videoDetailBox" >
+            <div class="align-left">
+                <div class="emoji-response">
+                    Top Responses : @foreach (var pair in Model.GetEmojiCount(2))
+                    {
+                        <span title="@pair.Value">@pair.Key</span>
+                    }
+                </div>
+            </div>
+            <div class="align-right">
+                @if (User.Identity.IsAuthenticated == true)
                 {
-                    <span title="@pair.Value">@pair.Key</span>
+                    
+                        <div class="add-comment-button">
+                            <p class="button primary">
+                                @Html.ActionLink("Add Comment", "Create", "Reviews", new { id = Model.ID }, null)
+                            </p>
+                        </div>
+                    
                 }
             </div>
         </div>
-        <div>
-    @if (User.Identity.IsAuthenticated == true)
-    {
-            <div class="align-right">
-                <div class="add-comment-button">
-                    <p class="button primary">
-                        @Html.ActionLink("Add Comment", "Create", "Reviews", new { id = Model.ID }, null)
-                    </p>
-                </div>
-            </div>
-    }
-</div>
     </div>
     <hr />
     

@@ -47,7 +47,7 @@ namespace tofix.Controllers
             model.userID = activeUser;
             model.videoID = id.Value;
 
-            ViewBag.allEmojis = new MultiSelectList(db.ReactionEmojis, "ID", "Reaction");
+            ViewBag.allEmojis = db.ReactionEmojis.ToList();
             //ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName");
             //ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI");
             
@@ -84,7 +84,7 @@ namespace tofix.Controllers
                 return RedirectToAction("Details","Videos",new {id=review.videoID});
             }
 
-            ViewBag.allEmojis = new MultiSelectList(db.ReactionEmojis, "ID", "Reaction",reviewVM.ReactionEmojiIDs);
+            ViewBag.allEmojis = db.ReactionEmojis.ToList();
             //ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
             //ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI", review.videoID);
             return View(reviewVM);

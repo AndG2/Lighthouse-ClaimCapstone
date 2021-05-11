@@ -1,4 +1,5 @@
 ﻿@model tofix.Models.ViewModels.CreateReviewViewModel
+@using tofix.Models
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +12,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.userID)
-    @Html.HiddenFor(m=>m.videoID)
+    @Html.HiddenFor(m => m.videoID)
 
     <div class="form-horizontal">
         <h4>Review</h4>
@@ -20,15 +21,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BodyText, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BodyText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.BodyText, new { HtmlTextWriterAttribute = new { @class = "text-area", rows="4" } })
                 @Html.ValidationMessageFor(model => model.BodyText, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ReactionEmojis, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ReactionEmojis, htmlAttributes: new { @class = "checkbox col-md-2" })
             <div class="container-fluid">
-                @Html.ListBoxFor(model => model.ReactionEmojiIDs, (MultiSelectList)ViewBag.allEmojis, new { @class = "form-control" })
+                @foreach(ReactionEmoji emoji in ViewBag.allEmojis)
+                {
+                    <input class="emojiCheckbox" type="checkbox" name="ReactionEmojiIDs" id="ReactionEmojiIDs-@emoji.ID" />
+                <label for="ReactionEmojiIDs-@emoji.ID" title="spaceSaver">@emoji.Reaction</label>
+                    @*@: @Html.CheckBoxFor(model => model.ReactionEmojiIDs, (MultiSelectList)ViewBag.allEmojis, new { @class = "form-control" })*@
+                }
+
+                @*@Html.CheckBoxFor(model => model.ReactionEmojiIDs, (MultiSelectList)ViewBag.allEmojis, new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.ReactionEmojis, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,4 +73,22 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var limit = 2
+        $('input.emojiCheckbox').on('change', function (evt) {
+            if ($(this).siblings(':checked').length >= limit) {
+                this.checked = false;
+            }
+            if (this.checked) {
+                //
+                $("label[for=" + ($(this).attr("id")) + "]").addClass("checkboxbox")
+            } else {
+                $("label[for=" + ($(this).attr("id")) + "]").removeClass("checkboxbox")
+            }
+        })
+
+
+
+
+    </script>
 }

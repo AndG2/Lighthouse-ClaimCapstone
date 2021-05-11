@@ -7,7 +7,7 @@
 <h2>Index</h2>
 @if(User.IsInRole("Admin")){
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <div class="button"> @Html.ActionLink("Create New", "Create")</div>
 </p> 
 }
 <table class="table">
@@ -28,14 +28,14 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <text>
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div> |
+                                    <div class="button small">  @Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
+                                    <div class="button small"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
                     </text>
                 }
                 else
                 {
-                    @: @Html.ActionLink("Details", "Details", new { id = item.ID })
+            <div class="button"> @Html.ActionLink("Details", "Details", new { id = item.ID })</div>
                 }
             </td>
         </tr>

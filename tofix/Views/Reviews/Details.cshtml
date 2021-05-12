@@ -1,4 +1,5 @@
 ﻿@model tofix.Models.Review
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Details";
@@ -11,19 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.BodyText)
+            Text
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.BodyText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReactionLink)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReactionLink)
         </dd>
 
         <dt>
@@ -34,17 +27,16 @@
             @Html.DisplayFor(model => model.UserData.DisplayName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Video.youtubeLinkAPI)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Video.youtubeLinkAPI)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Model.UserData.DisplayName == User.Identity.GetUserName() || User.IsInRole("Admin"))
+    {
+    <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = Model.ID })</div> @:|
+    <div class="button small">@Html.ActionLink("Delete", "Delete", new { id = Model.ID })</div> @:|
+    }
+
+    <div class="button primary small">@Html.ActionLink("Back to List", "Index")</div>
 </p>

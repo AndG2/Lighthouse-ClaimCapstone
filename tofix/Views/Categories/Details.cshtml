@@ -32,15 +32,15 @@
     @if (User.IsInRole("Admin"))
     {
         <text>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+            <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = Model.ID })</div>
              |
-            @Html.ActionLink("Back to List", "Index")
+            <div class="button primary small">@Html.ActionLink("Back to List", "Index")</div>
         </text>
     }
 
         else
 
         {
-            @: @Html.ActionLink("Back to List", "Index")
+<div class="button primary small"> @Html.ActionLink("Back to List", "Index")</div>
         }
     </p>

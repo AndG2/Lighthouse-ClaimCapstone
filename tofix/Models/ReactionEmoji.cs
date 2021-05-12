@@ -25,6 +25,7 @@ namespace tofix.Models
         public int ID { get; set; }
         public string Reaction { get; set; }
         public Nullable<int> Score { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }

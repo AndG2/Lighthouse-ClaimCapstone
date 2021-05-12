@@ -19,13 +19,7 @@
             @Html.DisplayFor(model => model.BodyText)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReactionLink)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReactionLink)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.UserData.DisplayName)
@@ -35,13 +29,7 @@
             @Html.DisplayFor(model => model.UserData.DisplayName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Video.youtubeLinkAPI)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Video.youtubeLinkAPI)
-        </dd>
 
     </dl>
 
@@ -49,8 +37,10 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default primary large"  />
+            <br />
+            <br />
+            <div class="button primary">@Html.ActionLink("Back to List", "Index")</div>
         </div>
     }
 </div>

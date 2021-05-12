@@ -5,14 +5,14 @@
 }
 <p>
     <div class="button">@Html.ActionLink("Create New", "Create")</div>
-</p>  
+</p>
 <div class="box alt">
     <div class="row gtr-uniform rowsOfVideos">
         @foreach (var item in Model)
         {
             <div class="col-6">
 
-                <a class="image fit" style="background-image:url('@item.videoImageUrl')"  href="@Url.Action("Details","Videos", new { id = item.ID })">
+                <a class="image fit" style="background-image:url('@item.videoImageUrl')" href="@Url.Action("Details","Videos", new { id = item.ID })">
 
                     <div class="videoTopBar">
                         <div class="videoEmojiReaction">
@@ -44,72 +44,3 @@
         }
     </div>
 </div>
-<table class="table">
-    <tr>
-        @*<th>
-                @Html.DisplayNameFor(model => model.Category.Name)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.videoImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.videoName)
-        </th>
-        <th>
-            Top Responses
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-
-        <th></th>
-    </tr>
-
-
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>*@
-            <td>
-                <span class="image fit">
-                    <img src="@item.videoImageUrl" />
-                    @*@Html.DisplayFor(modelItem => item.videoImageUrl)*@
-                </span>
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.videoName)
-            </td>
-            <td>
-                <div>
-                    @foreach (var pair in item.GetEmojiCount(2))
-                    {
-                        <span title="@pair.Value">@pair.Key</span>
-                    }
-                </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-
-
-            <td>
-                <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div>
-
-                @if (User.IsInRole("Admin"))
-                {
-                    <text>
-                        |
-                        <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
-                        <div class="button small">@Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
-                    </text>
-                }
-
-            </td>
-        </tr>
-    }
-
-</table>

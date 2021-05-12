@@ -31,8 +31,8 @@
             <div class="container-fluid">
                 @foreach(ReactionEmoji emoji in ViewBag.allEmojis)
                 {
-                    <input class="emojiCheckbox" type="checkbox" name="ReactionEmojiIDs" id="ReactionEmojiIDs-@emoji.ID" />
-                <label for="ReactionEmojiIDs-@emoji.ID" title="spaceSaver">@emoji.Reaction</label>
+                    <input class="emojiCheckbox" type="checkbox" name="ReactionEmojiIDs" id="ReactionEmojiIDs-@emoji.ID" value="@emoji.ID" />
+                <label for="ReactionEmojiIDs-@emoji.ID" title="@emoji.Description">@emoji.Reaction</label>
                     @*@: @Html.CheckBoxFor(model => model.ReactionEmojiIDs, (MultiSelectList)ViewBag.allEmojis, new { @class = "form-control" })*@
                 }
 

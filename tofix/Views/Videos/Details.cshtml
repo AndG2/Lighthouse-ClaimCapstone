@@ -5,17 +5,21 @@
 }
 <div class="align-center">
 
-    <h1>@Html.DisplayFor(model => model.videoName) </h1>
+    @*<h1>@Html.DisplayFor(model => model.videoName) </h1>*@
 
     <div>
         <span margin:auto>
-            <iframe width=800px height=600px src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
+            <iframe src="//www.youtube.com/embed/@Html.DisplayFor(model => model.youtubeLinkAPI)" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </span>
         <hr />
         <div class="row videoDetailBox" >
+            
             <div class="align-left">
+                
                 <div class="emoji-response">
+                    @Html.DisplayFor(model => model.videoName)
+                    <br /><br />
                     Top Responses : @foreach (var pair in Model.GetEmojiCount(2))
                     {
                         <span title="@pair.Value">@pair.Key</span>
@@ -23,16 +27,19 @@
                 </div>
             </div>
             <div class="align-right">
-                @if (User.Identity.IsAuthenticated == true)
-                {
-                    
+                <div class="totalRuntime">Runtime: </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+
                         <div class="add-comment-button">
                             <p class="button primary">
                                 @Html.ActionLink("Add Comment", "Create", "Reviews", new { id = Model.ID }, null)
                             </p>
                         </div>
-                    
-                }
+
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -49,13 +56,14 @@
     @if (User.IsInRole("Admin"))
     {
         <text>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-            @Html.ActionLink("Back to List", "Index")
+            <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = Model.ID })</div> |
+            <div class="button primary small">@Html.ActionLink("Back to List", "Details", "Categories", new { id = Model.videoCatagory }, null)</div>
+
         </text>
     }
     else
     {
-        @: @Html.ActionLink("Back to List", "Index")
+        <div class="button primary small"> @Html.ActionLink("Back to List", "Index")</div>
     }
 
 </p>

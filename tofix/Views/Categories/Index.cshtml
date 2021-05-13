@@ -11,24 +11,18 @@
 </p> 
 }
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td onclick="location.href='@Url.Action("Details", new { id = item.ID })'" style="cursor:pointer">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @if (User.IsInRole("Admin"))
                 {
                     <text>
-                                    <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div> |
+                                   
                                     <div class="button small">  @Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
                                     <div class="button small"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
                     </text>

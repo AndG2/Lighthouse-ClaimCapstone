@@ -7,10 +7,10 @@ namespace tofix.Models
 {
     public partial class Video
     {
-        public List<KeyValuePair <string,int>> GetEmojiCount(int maxCount)
+        public List<KeyValuePair <ReactionEmoji,int>> GetEmojiCount(int maxCount)
         {
             var result = Reviews.SelectMany(r => r.ReactionEmojis)
-                .GroupBy(e => e.Reaction,(reaction,group) => new KeyValuePair<string,int>(reaction,group.Count()))
+                .GroupBy(e => e,(emoji,group) => new KeyValuePair<ReactionEmoji,int>(emoji,group.Count()))
                 .OrderByDescending(kvp => kvp.Value)
                 .Take(maxCount)
                 .ToList();

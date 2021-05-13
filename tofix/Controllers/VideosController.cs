@@ -14,6 +14,7 @@ namespace tofix.Models
     public class VideosController : Controller
     {
         private LighthouseTest1Entities db = new LighthouseTest1Entities();
+        private static Random randomFinder = new Random();
 
         // GET: Videos
         public ActionResult Index(int? id)
@@ -27,7 +28,8 @@ namespace tofix.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                id = db.Videos.OrderByDescending(v => Guid.NewGuid()).First().ID;
+
             }
             Video video = db.Videos.Find(id);
             if (video == null)
@@ -60,14 +62,13 @@ namespace tofix.Models
                 videoPartsToBreak.Thumbnails.High ?? videoPartsToBreak.Thumbnails.Medium ?? videoPartsToBreak.Thumbnails.Default__;
             video.videoImageUrl = image.Url;
 
-            //video.videoLength= videoPartsToBreak.
             video.ReviewScoreTotal = 0;
         
             if (ModelState.IsValid)
             {
                 db.Videos.Add(video);
                 db.SaveChanges();
-                return RedirectToAction("Details","Categories",new { id=video.videoCatagory});
+                return RedirectToAction("Details","Videos",new { id=video.ID});
             }
 
             ViewBag.videoCatagory = new SelectList(db.Categories, "ID", "Name", video.videoCatagory);

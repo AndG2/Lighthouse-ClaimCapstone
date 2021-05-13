@@ -1,9 +1,67 @@
 ﻿@model IEnumerable<tofix.Models.Review>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
 }
-<table class="table">
+
+
+@foreach (var item in Model)
+{
+
+    <div class="responseBubble">
+        
+            <div class="responseBackground">
+                <div class="responseTop">
+                    <div class="left">
+                        @foreach (var emoji in item.ReactionEmojis)
+                        {
+                        <span title="@emoji.Description">@emoji.Reaction</span>
+                        }
+                    </div>
+                    <div class="right">
+                        <div><a href="javascript:showReviewMenu(@item.ID)" class="button small ">&equiv;</a></div>
+                    </div>
+                </div>
+                <div class="responseBody">
+                    @Html.DisplayFor(modelItem => item.BodyText)
+                </div>
+                <div class="responseFinal">
+                    <div class="responseFinal left">
+                        @Html.DisplayFor(modelItem => item.UserData.DisplayName)
+                    </div>
+                    <div class="responseFinal right">
+
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    <nav id="menuReview-@item.ID" class="reviewMenu hidden">
+        <div class="inner">
+                        <ul class="links">
+                <li><div>@Html.ActionLink("Details", "Details", new { id = item.ID })</div></li>
+
+                @if (item.UserData.DisplayName == User.Identity.GetUserName() || User.IsInRole("Admin"))
+                {
+                    <text>
+                        <li><div>@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div></li>
+                        <li><div> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div></li>
+                    </text>
+                }
+
+
+            </ul>
+            <a href="javascript:closeReviewMenu(@item.ID)" class="close">Close</a>
+        </div>
+    </nav>
+
+}
+
+
+
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.BodyText)
@@ -14,37 +72,57 @@
         <th>
             @Html.DisplayNameFor(model => model.UserData.DisplayName)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.BodyText)
-    </td>
-    <td>
-        @foreach (var emoji in item.ReactionEmojis)
-        {
-            @: @emoji.Reaction
-        }
-    <td>
-        @Html.DisplayFor(modelItem => item.UserData.DisplayName)
-    </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BodyText)
+            </td>
+            <td>
+                @foreach (var emoji in item.ReactionEmojis)
+                {
+                    @: @emoji.Reaction
+                }
+            <td>
+                @Html.DisplayFor(modelItem => item.UserData.DisplayName)
+            </td>
 
-    <td>
-        <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div>
+            <td>
+                <div class="button small">@Html.ActionLink("Details", "Details", new { id = item.ID })</div>
 
-        @if (User.IsInRole("Admin"))
-        {
-            <text>
-                |
-                    <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
-                    <div class="button small"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
-            </text>
-        }
-    </td>
-</tr>
-}
+                @if (User.IsInRole("Admin"))
+                {
+                    <text>
+                        |
+                        <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div> |
+                        <div class="button small"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</div>
+                    </text>
+                }
+            </td>
+        </tr>
+    }
 
-</table>
+</table>*@
+
+<script>
+    function showReviewMenu(reviewID) {
+        let elementID = "menuReview-" + reviewID
+        let menuElement = document.getElementById(elementID)
+        menuElement.classList.remove("hidden")
+        menuElement.classList.add("visibleRM")
+    }
+
+    function closeReviewMenu(reviewID) {
+        let elementID = "menuReview-" + reviewID
+        let menuElement = document.getElementById(elementID)
+        menuElement.classList.remove("visibleRM")
+        menuElement.classList.add("hidden")
+    }
+
+
+
+</script>

@@ -24,7 +24,7 @@ namespace tofix.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                id = db.Categories.OrderByDescending(v => Guid.NewGuid()).First().ID;
             }
             Category category = db.Categories.Find(id);
             if (category == null)

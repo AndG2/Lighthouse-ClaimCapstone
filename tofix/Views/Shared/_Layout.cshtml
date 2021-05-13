@@ -17,7 +17,7 @@
 
     <!-- Page Wrapper -->
     <div id="page-wrapper">
-
+        
         <!-- Header -->
         <header id="header">
             <h1><a href="~/Home">Lighthouse</a></h1>
@@ -36,7 +36,9 @@
                 <h2>Menu</h2>
                 <ul class="links">
                     <li><a href="~/Home/">Home</a></li>
-                    <li><a href="~/Categories/">Categories</a></li> @*/Catagories/Details/#*@
+                    <li><a href="~/Categories/">Categories</a></li>
+                    <li><a href="~/Categories/Details/">Random Category</a></li>
+                    <li><a href="~/Videos/Details/">Random Video</a></li>
                     <li><a href="~/Home/About">About</a></li>
                     @if (User.Identity.IsAuthenticated == false)
                     {
@@ -51,10 +53,10 @@
 
         <!-- Wrapper -->
         <section id="wrapper">
-   
+
             <!-- Content -->
-                    @RenderBody()
-            
+            @RenderBody()
+
         </section>
 
         <!-- Footer -->

@@ -38,5 +38,7 @@
     <div class="button small">@Html.ActionLink("Delete", "Delete", new { id = Model.ID })</div> @:|
     }
 
-    <div class="button primary small">@Html.ActionLink("Back to List", "Index")</div>
+<div class="button small primary">
+    @Html.ActionLink("Back to List", "Details", "Videos", new { id = Model.videoID }, null)
+</div>
 </p>

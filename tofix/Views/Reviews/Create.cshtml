@@ -67,8 +67,8 @@
     </div>
 }
 
-<div class="button small">
-    @Html.ActionLink("Back to List", "Index",new {id=Model.videoID})
+<div class="button small primary">
+    @Html.ActionLink("Back to List", "Details", "Videos", new { id = Model.videoID }, null)
 </div>
 
 @section Scripts {

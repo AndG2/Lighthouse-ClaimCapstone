@@ -118,7 +118,7 @@ namespace tofix.Controllers
             {
                 db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Videos", new { id = review.videoID });
             }
             ViewBag.userID = new SelectList(db.UserDatas, "ID", "DisplayName", review.userID);
             ViewBag.videoID = new SelectList(db.Videos, "ID", "youtubeLinkAPI", review.videoID);

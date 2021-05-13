@@ -32,7 +32,7 @@
     </dl>
 </div>
 <p>
-    @if (Model.UserData.DisplayName == User.Identity.GetUserName() || User.IsInRole("Admin"))
+    @if (Model.UserData.ID == User.Identity.GetUserId() || User.IsInRole("Admin"))
     {
     <div class="button small">@Html.ActionLink("Edit", "Edit", new { id = Model.ID })</div> @:|
     <div class="button small">@Html.ActionLink("Delete", "Delete", new { id = Model.ID })</div> @:|

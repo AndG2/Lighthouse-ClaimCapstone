@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<tofix.Models.Review>
 @using Microsoft.AspNet.Identity
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -43,7 +44,7 @@
                         <ul class="links">
                 <li><div>@Html.ActionLink("Details", "Details", new { id = item.ID })</div></li>
 
-                @if (item.UserData.DisplayName == User.Identity.GetUserName() || User.IsInRole("Admin"))
+                @if (item.UserData.ID == User.Identity.GetUserId() || User.IsInRole("Admin"))
                 {
                     <text>
                         <li><div>@Html.ActionLink("Edit", "Edit", new { id = item.ID })</div></li>

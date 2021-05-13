@@ -5,7 +5,7 @@ credentials*
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-secrets.config ##add to hide config passwords and data
+tofix/secrets.config 
 
 # User-specific files
 *.rsuser
